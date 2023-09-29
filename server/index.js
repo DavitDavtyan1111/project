@@ -14,7 +14,7 @@ const MONGODB_URL = process.env.MONGODB_URL;
 //middleware
 app.use(cors());
 app.use(express.json());
-
+//routes
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 

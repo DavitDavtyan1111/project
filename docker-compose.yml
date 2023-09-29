@@ -1,0 +1,43 @@
+version: '3'
+services:
+  # MongoDB service
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mern_network
+
+  # Server service
+  server:
+    build:
+      context: ./server # Путь к папке с серверным кодом
+    container_name: server
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydatabase # Измените mydatabase на имя вашей базы данных
+    depends_on:
+      - mongo
+    networks:
+      - mern_network
+
+  # Client service (React)
+  client:
+    build:
+      context: ./client # Путь к папке с клиентским кодом
+    container_name: client
+    ports:
+      - "3000:3000"
+    networks:
+      - mern_network
+
+networks:
+  mern_network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

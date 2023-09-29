@@ -32,7 +32,7 @@ export const deleteUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    console.log("update", req.params);
+    // console.log("update", req.params);
     const id = req.params.id;
     const { updateFirstName, updateLastName } = req.body;
     const user = await User.findOne({ _id: id });
